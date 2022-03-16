@@ -32,4 +32,4 @@ main: pre
 	gcc $(COMPILE)
 
 pre:
-	mkdir -p ./dist
+	mkdir -p $(BUILD_DIR)
