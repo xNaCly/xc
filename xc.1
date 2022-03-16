@@ -1,0 +1,61 @@
+.TH XC 1 xc\-v0.0.1
+.SH NAME
+xc \- xnacly's word counter, print line, word and char count
+.SH SYNOPSIS
+.B xc
+.RB [ FILE ]
+.RB [ OPTIONS ]
+.P
+.SH DESCRIPTION
+Print line, word and char counts for each FILE and a total count if more than one FILE is specified.
+.SH OPTIONS
+.TP
+.B \-v, --version
+prints version information, then exits
+.TP
+.B -m, --chars
+prints the character count
+.TP
+.B -l, --lines
+prints the line count
+.TP
+.B -w, --words
+prints the word count
+.TP
+.B -h, --help
+prints the help
+.SH EXAMPLES
+.TB
+Count all lines in all files in the current directory:
+.P
+.nf
+.RS
+xc * -l
+.RE
+.fi
+.P
+.TB
+Count all words in 
+.I main.c
+in the current directory:
+.P
+.nf
+.RS
+xc main.c -w 
+.RE
+.fi
+.P
+.TB
+Count all characters in 
+.I main.c, main.h
+in the current directory:
+.P
+.nf
+.RS
+xc main.c main.h -m 
+.RE
+.fi
+.SH AUTHORS
+Written by xnacly
+.SH SEE ALSO
+.IR wc (1)
