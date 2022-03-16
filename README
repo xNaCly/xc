@@ -1,5 +1,5 @@
 NAME
-       xc - xnacly's word count, print line, word and char count
+       xc - xnacly's word counter, print line, word and char count
 
 SYNOPSIS
        xc [FILE] [OPTIONS]
