@@ -6,12 +6,6 @@
 
 #include "xc.h"
 
-typedef struct wFile { 
-  int lines;
-  int words;
-  int chars;
-} wFile;
-
 static void throw_error(const char* text){
   printf("xc: %s\n", text);
   exit(EXIT_FAILURE);

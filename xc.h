@@ -3,6 +3,12 @@
 
 #define VERSION "0.0.1"
 
+typedef struct wFile { 
+  int lines;
+  int words;
+  int chars;
+} wFile;
+
 enum {
   LINE = 1,
   CHAR,
