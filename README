@@ -1,10 +1,12 @@
 xc - xnacly's word counter
 ==========================
+very small clone of wc
 
 Installation
 ------------
 
        make install
+
 
 Run xc
 ------
