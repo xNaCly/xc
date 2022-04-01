@@ -12,6 +12,7 @@ Run xc
 ------
        xc -h
 
+
 Options
 -------
 After installation run man xc or xc -h.
