@@ -1,44 +1,21 @@
-NAME
-       xc - xnacly's word counter, print line, word and char count
+xc - xnacly's word counter
+==========================
 
-SYNOPSIS
-       xc [FILE] [OPTIONS]
+Installation
+------------
 
-DESCRIPTION
-       Print line, word and char counts for each FILE and a total count if more than one FILE is specified.
+       make install
 
-OPTIONS
+Run xc
+------
+       xc -h
+
+Options
+-------
+After installation run man xc or xc -h.
+
        -v, --version
-              prints version information, then exits
-
        -m, --chars
-              prints the character count
-
        -l, --lines
-              prints the line count
-
        -w, --words
-              prints the word count
-
        -h, --help
-              prints the help
-
-EXAMPLES
-       Count all lines in all files in the current directory:
-
-              xc * -l
-
-       Count all words in main.c in the current directory:
-
-              xc main.c -w
-
-       Count all characters in main.c, main.h in the current directory:
-
-              xc main.c main.h -m
-
-AUTHORS
-       Written by xnacly
-
-SEE ALSO
-       wc(1)
-
