@@ -2,6 +2,7 @@
 #define XC_H
 
 #define VERSION "0.0.1"
+#define USAGE "Usage:\n\txc [FILES] [OPTIONS]\n\n-m \t Print characters in file\n-l \t Print lines in file\n-w \t Print words in file\n"
 
 typedef struct wFile { 
   int lines;
@@ -15,5 +16,7 @@ enum {
   WORD,
   ALL,
 };
+
+
 
 #endif
