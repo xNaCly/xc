@@ -49,18 +49,20 @@ static int isDir(const char* target){
  * even if the user specifies otherwise!
  */
 wFile* work_file(const char* filename){
-  wFile *f = malloc( sizeof(int) * 3 );
+  if(isDir(filename))
+    return NULL;
+
+  wFile *f = (wFile *)malloc( sizeof(int) * 3 );
   f->lines = 0;
   f->words = 0;
   f->chars = 0;
 
-  if(isDir(filename))
-    return NULL;
 
   char ch;
   FILE *file = fopen(filename, "r");
 
   if(file == NULL){
+    free(f);
     char temp[559];
     sprintf(temp, "xc: %s", filename);
     perror(temp);
@@ -149,6 +151,7 @@ int main(int argc, const char *argv[]){
     chars += f->chars;
     lines += f->lines;
     words += f->words;
+    free(f);
   }
 
   if(amount_of_files > 1){
@@ -175,6 +178,7 @@ int main(int argc, const char *argv[]){
     chars = f->chars;
     lines = f->lines;
     words = f->words;
+    free(f);
   }
 
   return EXIT_SUCCESS;
