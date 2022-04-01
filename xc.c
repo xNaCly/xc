@@ -4,7 +4,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-#define VERSION "0.0.1"
+#define VERSION "0.0.2"
 
 #define USAGE "Usage: \
   \n\txc [FILES] [OPTIONS]\
