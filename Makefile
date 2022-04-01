@@ -44,5 +44,8 @@ uninstall:
 main: pre
 	gcc $(COMPILE)
 
+debug: pre
+	gcc -g3 $(COMPILE)
+
 pre:
 	mkdir -p $(BUILD_DIR)
