@@ -2,7 +2,12 @@
 #define XC_H
 
 #define VERSION "0.0.1"
-#define USAGE "Usage:\n\txc [FILES] [OPTIONS]\n\n-m \t Print characters in file\n-l \t Print lines in file\n-w \t Print words in file\n"
+#define USAGE "Usage: \
+  \n\txc [FILES] [OPTIONS]\
+  \n \
+  \n-m  --chars \n\t Print characters in file\n \
+  \n-l  --lines \n\t Print lines in file\n \
+  \n-w  --words \n\t Print words in file\n"
 
 typedef struct wFile { 
   int lines;
