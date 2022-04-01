@@ -24,6 +24,12 @@ COMPILE := $(FLAGS) xc.c -o $(BUILD_DIR)/xc.out
 run: main
 	$(BUILD_DIR)/xc.out *
 
+help: main
+	$(BUILD_DIR)/xc.out -h
+
+version: main
+	$(BUILD_DIR)/xc.out -v
+
 # compile the executable
 main: pre
 	gcc $(COMPILE)
