@@ -20,7 +20,6 @@ FLAGS := -fdiagnostics-color=always  \
 BUILD_DIR := ./dist
 COMPILE := $(FLAGS) xc.c -o $(BUILD_DIR)/xc.out 
 
-# run the previously built executable
 run: main
 	$(BUILD_DIR)/xc.out *
 
@@ -30,7 +29,18 @@ help: main
 version: main
 	$(BUILD_DIR)/xc.out -v
 
-# compile the executable
+install: main
+	cp ./xc.1 ./xc.1_copy
+	gzip ./xc.1_copy
+	mv ./xc.1_copy.gz ./xc.1.gz
+	sudo mkdir -p /usr/local/share/man/man1
+	sudo mv xc.1.gz /usr/local/share/man/man1/xc.1.gz
+	sudo mv $(BUILD_DIR)/xc.out /usr/local/bin/xc
+
+uninstall:
+	sudo rm /usr/local/man/man1/xc.1.gz
+	sudo rm /usr/local/bin/xc
+
 main: pre
 	gcc $(COMPILE)
 
