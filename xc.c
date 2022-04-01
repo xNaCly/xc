@@ -69,8 +69,8 @@ wFile* work_file(const char* filename){
   
   /*
    * - every entry is counted as a character
-   * - lines are seperated by linebreak or zero char
-   * - words are seperated by spaces
+   * - lines are separated by linebreak or zero char
+   * - words are separated by spaces
    */
   while((ch=fgetc(file))!=EOF){
     f->chars++;
