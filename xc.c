@@ -10,12 +10,20 @@ static void throw_error(const char* text){
   printf("xc: %s\n", text);
   exit(EXIT_FAILURE);
 } 
+
 static int isFile(const char* target){
   struct stat statbuf;
   stat(target, &statbuf);
   return S_ISDIR(statbuf.st_mode);
 }
 
+/*
+ * NOTE: due to this implementation, every file is scanned for:
+ *  - lines 
+ *  - words 
+ *  - chars
+ * even if the user specifies otherwise!
+ */
 wFile* work_file(const char* filename){
   wFile *f = malloc( sizeof(int) * 3 );
   f->lines = 0;
@@ -35,6 +43,11 @@ wFile* work_file(const char* filename){
     exit(EXIT_FAILURE);
   }
   
+  /*
+   * - every entry is counted as a character
+   * - lines are seperated by linebreak or zero char
+   * - words are seperated by spaces
+   */
   while((ch=fgetc(file))!=EOF){
     f->chars++;
     if(ch == '\0' || ch=='\n'){
@@ -59,6 +72,9 @@ int main(int argc, const char *argv[]){
   if(argc == 1)
     throw_error("Not enough arguments.");
 
+  /*
+   * very unprofessional way of handling arguments :/
+   */
   for(int i = 1; i < argc; i++){
     if(argv[i][0] == '-'){
       if(strcmp("-v", argv[i]) == 0 || strcmp("--version", argv[i]) == 0){
@@ -71,18 +87,7 @@ int main(int argc, const char *argv[]){
       } else if(strcmp("-w", argv[i]) == 0 || strcmp("--words", argv[i]) == 0){
         mode = WORD;
       } else if(strcmp("--help", argv[i]) == 0 || strcmp("-h", argv[i]) == 0 ){
-        printf("Usage:"
-            "\n\txc [FILES] [OPTIONS]"
-            "\n\n -m \t Print characters in file\n"
-            " -l \t Print lines in file\n"
-            " -w \t Print words in file\n"
-            "\nExample:"
-            "\n Counting words in main.c and test.c:"
-            "\n\n\t xc main.c test.c -w"
-            "\n\n Counting lines for all files in current directory:"
-            "\n\n\t xc * -l"
-            "\n\nVersion: \n\tv%s\n", VERSION
-            );
+        printf(USAGE);
         exit(EXIT_SUCCESS);
       }
       else {
