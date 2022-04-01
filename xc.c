@@ -11,7 +11,7 @@ static void throw_error(const char* text){
   exit(EXIT_FAILURE);
 } 
 
-static int isFile(const char* target){
+static int isDir(const char* target){
   struct stat statbuf;
   stat(target, &statbuf);
   return S_ISDIR(statbuf.st_mode);
@@ -30,7 +30,7 @@ wFile* work_file(const char* filename){
   f->words = 0;
   f->chars = 0;
 
-  if(isFile(filename))
+  if(isDir(filename))
     return NULL;
 
   char ch;
@@ -144,6 +144,10 @@ int main(int argc, const char *argv[]){
    return EXIT_SUCCESS;
   }else {
     wFile *f = work_file(filename[0]);
+    if(f == NULL){
+      printf("%s is a directory\n", filename[0]);
+      return EXIT_SUCCESS;
+    }
     chars = f->chars;
     lines = f->lines;
     words = f->words;
