@@ -67,7 +67,7 @@ public class ArgsParser {
 		
 		String[] finalArgs = parsedArgs.toArray(new String[0]);
 		String[] finalFlags = parsedFlags.toArray(new String[0]);
- 		Args parsedArguments = new Args(finalArgs, finalFlags);
+ 		Args parsedArguments = new Args(finalFlags, finalArgs);
  		
 		this._args =  parsedArguments;
 	}
