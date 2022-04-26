@@ -107,13 +107,13 @@ fn run(arguments: Cli, mode: Mode) {
     if len > 1 {
         match mode {
             Mode::LINES => {
-                println!("{0} total", total_lines);
+                println!("{0:>3} total", total_lines);
             }
             Mode::CHARS => {
-                println!("{0} total", total_chars);
+                println!("{0:>3} total", total_chars);
             }
             Mode::WORDS => {
-                println!("{0} total", total_words);
+                println!("{0:>3} total", total_words);
             }
             _ => {
                 println!(
