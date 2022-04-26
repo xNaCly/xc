@@ -24,6 +24,9 @@ class Xfile {
 	private void readFile() {
 		try {
 			File f = new File(this.path);
+			if(f.isDirectory()){
+				return;
+			}
 			Scanner sc = new Scanner(f);
 			chars = (int)f.length();
 			while(sc.hasNext()) {
@@ -52,8 +55,7 @@ public class Xc {
 	}
 
 	private static void start(String[] args) {
-		String[] args_ = { "/home/teo/test.test" };
-		ArgsParser ap = new ArgsParser(args_);
+		ArgsParser ap = new ArgsParser(args);
 
 		for (String a : ap.flags) {
 			switch (a) {
