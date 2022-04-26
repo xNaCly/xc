@@ -10,7 +10,7 @@ class Xfile {
 	String name;
 	String path;
 	int chars = 0;
-	int words= 0;
+	int words = 0;
 	int lines = 0;
 
 	public Xfile(String path) {
@@ -19,17 +19,16 @@ class Xfile {
 		this.name = temp[temp.length - 1]; // get last item of path split in l.14
 		this.readFile();
 	}
-	
 
 	private void readFile() {
 		try {
 			File f = new File(this.path);
-			if(f.isDirectory()){
+			if (f.isDirectory()) {
 				return;
 			}
 			Scanner sc = new Scanner(f);
-			chars = (int)f.length();
-			while(sc.hasNext()) {
+			chars = (int) f.length();
+			while (sc.hasNext()) {
 				String data = sc.nextLine();
 				words += data.split(" ").length;
 				lines++;
@@ -39,7 +38,7 @@ class Xfile {
 			System.out.println(this.name + " couldnt be read.");
 			e.printStackTrace();
 		}
-		
+
 	}
 }
 
@@ -51,12 +50,10 @@ public class Xc {
 
 	public static void main(String[] args) {
 		start(args);
-
 	}
 
 	private static void start(String[] args) {
 		ArgsParser ap = new ArgsParser(args);
-
 		for (String a : ap.flags) {
 			switch (a) {
 			case "version":
