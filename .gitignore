@@ -1,5 +1,6 @@
 *.out
-/.metadata/
-/bin/
+.metadata/
+bin/
 .project
 .classpath
+dist/
