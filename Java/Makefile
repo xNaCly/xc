@@ -1,5 +1,5 @@
 all: pre
-	# compile java
+	# compile classes
 	javac src/*.java
 	# move compiled files to dist
 	mv src/*.class dist/
