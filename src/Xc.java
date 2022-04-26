@@ -1,26 +1,42 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 enum MODES {
 	CHARS, WORDS, LINES, ALL,
 }
 
-class File {
+class Xfile {
 	String name;
 	String path;
-	int chars;
-	int words;
-	int lines;
+	int chars = 0;
+	int words= 0;
+	int lines = 0;
 
-	public File(String path) {
+	public Xfile(String path) {
 		this.path = path;
 		String[] temp = path.split("/");
 		this.name = temp[temp.length - 1]; // get last item of path split in l.14
-		this.workFile();
+		this.readFile();
 	}
+	
 
-	private void workFile() {
-		// read file and assigning read values to variables
-		this.chars = 25;
-		this.words = 25;
-		this.lines = 25;
+	private void readFile() {
+		try {
+			File f = new File(this.path);
+			Scanner sc = new Scanner(f);
+			chars = (int)f.length();
+			while(sc.hasNext()) {
+				String data = sc.nextLine();
+				words += data.split(" ").length;
+				lines++;
+			}
+			sc.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(this.name + " couldnt be read.");
+			e.printStackTrace();
+		}
+		
 	}
 }
 
@@ -36,7 +52,7 @@ public class Xc {
 	}
 
 	private static void start(String[] args) {
-		String[] args_ = { "../test.h" };
+		String[] args_ = { "/home/teo/test.test" };
 		ArgsParser ap = new ArgsParser(args_);
 
 		for (String a : ap.flags) {
@@ -68,7 +84,7 @@ public class Xc {
 		}
 
 		for (String a : ap.args) {
-			File f = new File(a);
+			Xfile f = new Xfile(a);
 			totalChars += f.chars;
 			totalWords += f.words;
 			totalLines += f.lines;
@@ -83,7 +99,7 @@ public class Xc {
 				System.out.printf("%d %s %n", f.words, f.name);
 				break;
 			default:
-				System.out.printf("%d %d %d %s %n", f.chars, f.words, f.lines, f.name);
+				System.out.printf("%d %d %d %s %n", f.lines, f.words, f.chars, f.name);
 			}
 		}
 		if (ap.args.size() > 1) {
@@ -98,7 +114,7 @@ public class Xc {
 				System.out.printf("%d total %n", totalWords);
 				break;
 			default:
-				System.out.printf("%d %d %d total %n", totalChars, totalWords, totalLines);
+				System.out.printf("%d %d %d total %n", totalLines, totalWords, totalLines);
 			}
 		}
 	}
