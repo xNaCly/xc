@@ -4,6 +4,7 @@ xc - implementation of wc in various languages
 ## Languages:
 - [C](/C)
 - [Java](/Java)
+- [Python](/Python)
 - [Rust](/Rust) **WIP**
 
 ## Build Requirements:
