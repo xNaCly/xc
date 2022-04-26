@@ -1,6 +1,6 @@
-xc - xnacly's word counter
+C implementation
 ==========================
-very small clone of wc
+clone of wc
 
 Installation
 ------------
