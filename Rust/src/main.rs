@@ -53,6 +53,8 @@ fn read_file(path: String) -> Xfile {
             Ok(file) => file,
         };
 
+        // incredibly inefficient to store whole file content in memory, but due to me being a
+        // shitty programmer i do not know a better way to do this currently, if you read this,HELP
         let mut s = String::new();
         match file.read_to_string(&mut s) {
             Err(why) => panic!("couldn't read {}: {}", display, why),
@@ -61,6 +63,7 @@ fn read_file(path: String) -> Xfile {
 
         chars = s.len() as u128;
         lines = s.lines().count() as u64;
+        // this does not count correctly :/
         words = s.trim().split(" ").collect::<String>().len() as u128;
     }
 
