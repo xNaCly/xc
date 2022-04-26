@@ -1,5 +1,6 @@
+> Please contribute new implementations or improve exisiting ones :)
 # xc
-xc - implementation of wc in various languages
+implementation of wc in various languages
 
 ## Languages:
 - [C](/C)
