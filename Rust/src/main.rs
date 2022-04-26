@@ -26,7 +26,7 @@ fn parse_args(mut arguments: Vec<String>) -> Cli {
     let mut args: Vec<String> = Vec::new();
 
     for arg in arguments {
-        if arg.starts_with("--") {
+        if arg.starts_with("--") || arg.starts_with("-") {
             flags.push(arg);
         } else {
             args.push(arg);
@@ -43,7 +43,9 @@ fn read_file(path: String) -> File {
     let words: u128 = 0;
     let lines: u64 = 0;
 
-    if new_path.exists() {}
+    if new_path.exists() && new_path.is_file() {
+
+    }
 
     return File {
         name: String::from(temp[temp.len() - 1]),
@@ -64,10 +66,36 @@ fn run(arguments: Cli, mode: Mode) {
         total_chars += f.chars;
         total_words += f.words;
         total_lines += f.lines;
-        println!("{0} {1} {2} {3}", f.lines, f.words, f.chars, f.name);
+        match mode {
+            Mode::LINES => {
+                println!("{0} {1}", f.lines, f.name);
+            }
+            Mode::CHARS => {
+                println!("{0} {1}", f.chars, f.name);
+            }
+            Mode::WORDS => {
+                println!("{0} {1}", f.words, f.name);
+            }
+            _ => {
+                println!("{0} {1} {2} {3}", f.lines, f.words, f.chars, f.name);
+            }
+        }
     }
     if len > 1 {
-        println!("{0} {1} {2} total", total_lines, total_words, total_chars);
+        match mode {
+            Mode::LINES => {
+                println!("{0} total", total_lines);
+            }
+            Mode::CHARS => {
+                println!("{0} total", total_chars);
+            }
+            Mode::WORDS => {
+                println!("{0} total", total_words);
+            }
+            _ => {
+                println!("{0} {1} {2} total", total_lines, total_words, total_chars);
+            }
+        }
     }
 }
 
