@@ -64,7 +64,7 @@ fn read_file(path: String) -> Xfile {
         chars = s.len() as u128;
         lines = s.lines().count() as u64;
         // this does not count correctly :/
-        words = s.trim().split(" ").collect::<String>().len() as u128;
+        words = s.trim().split_whitespace().collect::<String>().len() as u128;
     }
 
     return Xfile {
@@ -88,16 +88,19 @@ fn run(arguments: Cli, mode: Mode) {
         total_lines += f.lines;
         match mode {
             Mode::LINES => {
-                println!("{0} {1}", f.lines, f.name);
+                println!("{0:>3} {1:>2}", f.lines, f.name);
             }
             Mode::CHARS => {
-                println!("{0} {1}", f.chars, f.name);
+                println!("{0:>3} {1:>2}", f.chars, f.name);
             }
             Mode::WORDS => {
-                println!("{0} {1}", f.words, f.name);
+                println!("{0:>3} {1:>2}", f.words, f.name);
             }
             _ => {
-                println!("{0} {1} {2} {3}", f.lines, f.words, f.chars, f.name);
+                println!(
+                    "{0:>3} {1:>3} {2:>3} {3:>2}",
+                    f.lines, f.words, f.chars, f.name
+                );
             }
         }
     }
@@ -113,7 +116,10 @@ fn run(arguments: Cli, mode: Mode) {
                 println!("{0} total", total_words);
             }
             _ => {
-                println!("{0} {1} {2} total", total_lines, total_words, total_chars);
+                println!(
+                    "{0:>3} {1:>2} {2:>2} total",
+                    total_lines, total_words, total_chars
+                );
             }
         }
     }
