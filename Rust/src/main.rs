@@ -1,4 +1,6 @@
 use std::env;
+use std::fs::File;
+use std::io::Read;
 use std::path::Path;
 
 enum Mode {
@@ -13,7 +15,7 @@ struct Cli {
     args: Vec<String>,
 }
 
-struct File {
+struct Xfile {
     name: String,
     chars: u128,
     words: u128,
@@ -36,18 +38,33 @@ fn parse_args(mut arguments: Vec<String>) -> Cli {
     return Cli { flags, args };
 }
 
-fn read_file(path: String) -> File {
+fn read_file(path: String) -> Xfile {
     let new_path = Path::new(&path);
     let temp: Vec<&str> = path.split(std::path::MAIN_SEPARATOR).collect();
-    let chars: u128 = 0;
-    let words: u128 = 0;
-    let lines: u64 = 0;
+    let mut chars: u128 = 0;
+    let mut words: u128 = 0;
+    let mut lines: u64 = 0;
 
     if new_path.exists() && new_path.is_file() {
+        let display = new_path.display();
 
+        let mut file: File = match File::open(&new_path) {
+            Err(why) => panic!("couldn't open {}: {}", display, why),
+            Ok(file) => file,
+        };
+
+        let mut s = String::new();
+        match file.read_to_string(&mut s) {
+            Err(why) => panic!("couldn't read {}: {}", display, why),
+            Ok(_) => {}
+        }
+
+        chars = s.len() as u128;
+        lines = s.lines().count() as u64;
+        words = s.trim().split(" ").collect::<String>().len() as u128;
     }
 
-    return File {
+    return Xfile {
         name: String::from(temp[temp.len() - 1]),
         chars,
         words,
@@ -62,7 +79,7 @@ fn run(arguments: Cli, mode: Mode) {
     let len: usize = arguments.args.len();
 
     for file in arguments.args {
-        let f: File = read_file(file);
+        let f: Xfile = read_file(file);
         total_chars += f.chars;
         total_words += f.words;
         total_lines += f.lines;
@@ -106,10 +123,6 @@ fn main() {
     let files = &parsed_arguments.args;
     let flags = &parsed_arguments.flags;
 
-    if files.len() <= 1 {
-        return;
-    }
-
     for i in flags {
         let i_ = String::from(i);
         match i_.as_str() {
@@ -118,7 +131,7 @@ fn main() {
                 return;
             }
             "-h" | "--help" => {
-                println!("help screen");
+                println!("Usage: \n\txc [FILES] [OPTIONS]\n \n-m  --chars \n\t Print characters in file\n \n-l  --lines \n\t Print lines in file\n \n-w  --words \n\t Print words in file\n");
                 return;
             }
             "-l" | "--lines" => {
@@ -132,6 +145,10 @@ fn main() {
             }
             _ => mode = Mode::ALL,
         }
+    }
+
+    if files.len() <= 1 {
+        return;
     }
 
     run(parsed_arguments, mode);
