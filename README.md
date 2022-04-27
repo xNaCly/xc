@@ -1,6 +1,6 @@
 > Please contribute new implementations or improve exisiting ones :)
 # xc
-implementation of wc in various languages
+implementation of the word counter shell utility (wc) in various languages
 
 ## Languages:
 - [C](/C)
