@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::Read;
+use std::io::{BufReader, BufRead};
 use std::path::Path;
 
 enum Mode {
@@ -48,23 +48,21 @@ fn read_file(path: String) -> Xfile {
     if new_path.exists() && new_path.is_file() {
         let display = new_path.display();
 
-        let mut file: File = match File::open(&new_path) {
+        let file = match File::open(&new_path) {
             Err(why) => panic!("couldn't open {}: {}", display, why),
             Ok(file) => file,
         };
 
-        // incredibly inefficient to store whole file content in memory, but due to me being a
-        // shitty programmer i do not know a better way to do this currently, if you read this,HELP
-        let mut s = String::new();
-        match file.read_to_string(&mut s) {
-            Err(why) => panic!("couldn't read {}: {}", display, why),
-            Ok(_) => {}
-        }
 
-        chars = s.len() as u128;
-        lines = s.lines().count() as u64;
-        // this does not count correctly :/
-        words = s.trim().split_whitespace().collect::<String>().len() as u128;
+        let reader = BufReader::new(file);
+        for line in reader.lines() {
+            lines += 1;
+            chars += 1; // Count the newline character
+
+            let line = line.unwrap();
+            chars += line.len() as u128;
+            words += line.split_whitespace().count() as u128;
+        }
     }
 
     return Xfile {
@@ -140,7 +138,17 @@ fn main() {
                 return;
             }
             "-h" | "--help" => {
-                println!("Usage: \n\txc [FILES] [OPTIONS]\n \n-m  --chars \n\t Print characters in file\n \n-l  --lines \n\t Print lines in file\n \n-w  --words \n\t Print words in file\n");
+                println!("Usage: \n\
+                          \txc [FILES] [OPTIONS]\n\
+                          \n\
+                          -m  --chars \n\
+                          \tPrint characters in file\n\
+                          \n\
+                          -l  --lines \n\
+                          \tPrint lines in file\n\
+                          \n\
+                          -w  --words \n\
+                          \tPrint words in file");
                 return;
             }
             "-l" | "--lines" => {
@@ -156,7 +164,8 @@ fn main() {
         }
     }
 
-    if files.len() <= 1 {
+    if files.len() < 1 {
+        println!("xc: Not enough arguments.");
         return;
     }
 
