@@ -6,7 +6,7 @@ implementation of the word counter shell utility (wc) in various languages
 - [C](/C)
 - [Java](/Java)
 - [Python](/Python)
-- [Rust](/Rust) **WIP**
+- [Rust](/Rust)
 
 ## Build Requirements:
 All documentation in this repo assumes a \*nix operating system, create a virtual machine for the least hussle [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwitx8m6tLH3AhVGnKQKHQABA8YQwqsBegQIAxAB&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DsB_5fqiysi4&usg=AOvVaw2NcyjuXi_VnBI2CAYt-b_W) `[Youtube]`.
