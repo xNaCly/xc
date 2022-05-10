@@ -4,6 +4,7 @@ implementation of the word counter shell utility (wc) in various languages
 
 ## Languages:
 - [C](/C)
+- [Go](/Go)
 - [Java](/Java)
 - [Python](/Python)
 - [Rust](/Rust)
